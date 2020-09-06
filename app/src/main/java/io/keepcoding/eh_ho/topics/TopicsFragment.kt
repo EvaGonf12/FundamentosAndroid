@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.keepcoding.eh_ho.R
+import io.keepcoding.eh_ho.data.SignUpModel
 import io.keepcoding.eh_ho.data.Topic
 import io.keepcoding.eh_ho.data.TopicsRepo
 import io.keepcoding.eh_ho.inflate
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_topics.*
+import kotlinx.android.synthetic.main.view_load_error.*
 
 
 class TopicsFragment : Fragment() {
@@ -72,6 +75,11 @@ class TopicsFragment : Fragment() {
             }*/
         })
 
+        buttonRetry.setOnClickListener {
+            viewError.visibility = View.INVISIBLE
+            this.loadTopics()
+        }
+
         topicsAdapter.setTopics(TopicsRepo.topics)
 
         listTopics.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -101,7 +109,8 @@ class TopicsFragment : Fragment() {
                     },
                     {
                         setLoading(false)
-                        // TODO: Manejo de errores
+                        viewError.visibility = View.VISIBLE
+                        buttonCreate.visibility = View.INVISIBLE
                     }
                 )
         }
@@ -109,14 +118,15 @@ class TopicsFragment : Fragment() {
 
     private fun setLoading(loading: Boolean) {
         if (loading) {
+            buttonCreate.visibility = View.INVISIBLE
             this.listTopics.visibility = View.INVISIBLE
             viewLoading.visibility = View.VISIBLE
         } else {
+            buttonCreate.visibility = View.VISIBLE
             this.listTopics.visibility = View.VISIBLE
             viewLoading.visibility = View.INVISIBLE
         }
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {

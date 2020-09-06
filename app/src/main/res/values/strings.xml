@@ -56,4 +56,6 @@
     <string name="topic_title">Topic: </string>
     <string name="label_title">Title: </string>
     <string name="label_post_content">Content Post: </string>
+    <string name="label_topics_error">Has been an error trying to get topics.</string>
+    <string name="label_retry">Retry</string>
 </resources>

@@ -38,4 +38,9 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         layout="@layout/view_loading"
         android:visibility="invisible"/>
 
+    <include
+        android:id="@+id/viewError"
+        layout="@layout/view_load_error"
+        android:visibility="invisible"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
