@@ -8,6 +8,7 @@ import com.squareup.picasso.Picasso
 import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.data.Post
 import io.keepcoding.eh_ho.inflate
+import kotlinx.android.synthetic.main.fragment_posts.view.*
 import kotlinx.android.synthetic.main.item_post.view.*
 import java.lang.IllegalArgumentException
 import java.util.*

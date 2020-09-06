@@ -52,6 +52,12 @@ class TopicsFragment : Fragment() {
             this.topicsInteractionListener?.onCreateTopic()
         }
 
+        // Reaload on swipe
+        swipeRefresh.setOnRefreshListener {
+            this.loadTopics()
+            swipeRefresh.isRefreshing = false
+        }
+
         topicsAdapter.setTopics(TopicsRepo.topics)
 
         listTopics.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

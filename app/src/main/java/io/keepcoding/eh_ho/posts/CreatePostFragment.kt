@@ -4,26 +4,26 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import io.keepcoding.eh_ho.LoadingDialogFragment
 import io.keepcoding.eh_ho.R
-import io.keepcoding.eh_ho.data.CreatePostModel
-import io.keepcoding.eh_ho.data.RequestError
-import io.keepcoding.eh_ho.data.PostsRepo
+import io.keepcoding.eh_ho.data.*
 import io.keepcoding.eh_ho.inflate
 import kotlinx.android.synthetic.main.fragment_create_post.*
+import kotlinx.android.synthetic.main.fragment_posts.*
 import java.lang.IllegalArgumentException
 
 const val TAG_LOADING_DIALOG = "loading_dialog"
 
-class CreatePostFragment : Fragment() {
+class CreatePostFragment() : Fragment() {
 
     var interactionListener: CreatePostInteractionListener? = null
     val loadingDialogFragment: LoadingDialogFragment by lazy {
         val message = getString(R.string.label_creating_post)
         LoadingDialogFragment.newInstance(message)
     }
+    var topicName: String = ""
+    var topicId: String = ""
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,7 +44,21 @@ class CreatePostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        this.arguments?.let {
+            this.topicName = it.getString(EXTRA_TOPIC_NAME).toString()
+            this.topicId = it.getString(EXTRA_TOPIC_ID).toString()
+        }
         return container?.inflate(R.layout.fragment_create_post)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        context?.let {
+            var topicTitleLabel = getText(R.string.topic_title).toString()
+            titleTopicOnCreate.text = "${topicTitleLabel} ${this.topicName}"
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -61,17 +75,18 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun createPost() {
-/*        if (isFormValid()) {
+        if (isFormValid()) {
             postPost()
         } else {
             showErrors()
-        }*/
+        }
     }
 
     private fun postPost() {
         enableLoadingDialog()
         val model = CreatePostModel(
             inputTitle.text.toString(),
+            this.topicId,
             inputContent.text.toString()
         )
 
@@ -108,10 +123,10 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun showErrors() {
-        /*if (inputTitle.text.isEmpty())
+        if (inputTitle.text.isEmpty())
             inputTitle.error = getString(R.string.error_empty)
         if (inputContent.text.isEmpty())
-            inputContent.error = getString(R.string.error_empty)*/
+            inputContent.error = getString(R.string.error_empty)
     }
 
 

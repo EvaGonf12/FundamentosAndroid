@@ -7,6 +7,7 @@ import io.keepcoding.eh_ho.*
 import io.keepcoding.eh_ho.data.Topic
 import io.keepcoding.eh_ho.data.UserRepo
 import io.keepcoding.eh_ho.login.LoginActivity
+import io.keepcoding.eh_ho.posts.EXTRA_TOPIC_NAME
 import io.keepcoding.eh_ho.posts.PostsActivity
 
 
@@ -29,6 +30,7 @@ class TopicsActivity : AppCompatActivity(),
     private fun goToPosts(topic: Topic) {
         val intent = Intent(this, PostsActivity::class.java)
         intent.putExtra(EXTRA_TOPIC_ID, topic.id)
+        intent.putExtra(EXTRA_TOPIC_NAME, topic.title)
         startActivity(intent)
     }
 

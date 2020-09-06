@@ -11,27 +11,44 @@ import io.keepcoding.eh_ho.login.LoginActivity
 
 const val TRANSACTION_CREATE_POST = "create_post"
 const val EXTRA_TOPIC_ID = "TOPIC_ID"
+const val EXTRA_TOPIC_NAME = "TOPIC_NAME"
 
 class PostsActivity : AppCompatActivity(),
     PostsFragment.PostsInteractionListener,
     CreatePostFragment.CreatePostInteractionListener {
 
+    var topicId: String = ""
+    var topicName: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts)
 
-        val topicId: String = intent.getStringExtra(EXTRA_TOPIC_ID) ?: ""
-        val topic: Topic? = TopicsRepo.getTopic(topicId)
+        this.topicId = intent.getStringExtra(EXTRA_TOPIC_ID)
+        this.topicName = intent.getStringExtra(EXTRA_TOPIC_NAME)
 
-        if (isFirsTimeCreated(savedInstanceState))
+        if (isFirsTimeCreated(savedInstanceState)) {
+            var bundle = Bundle()
+            // Se le pasa el id del topic
+            bundle.putString(EXTRA_TOPIC_ID, this.topicId)
+            bundle.putString(EXTRA_TOPIC_NAME, this.topicName)
+            var postsFragment = PostsFragment()
+            postsFragment.arguments = bundle
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, PostsFragment(topicId))
+                .add(R.id.fragmentContainer, postsFragment)
                 .commit()
+        }
     }
 
     override fun onCreatePost() {
+        var bundle = Bundle()
+        // Se le pasa el id del topic y el título
+        bundle.putString(EXTRA_TOPIC_ID, this.topicId)
+        bundle.putString(EXTRA_TOPIC_NAME, this.topicName)
+        var createPostFragment = CreatePostFragment()
+        createPostFragment.arguments = bundle
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, CreatePostFragment())
+            .replace(R.id.fragmentContainer, createPostFragment)
             .addToBackStack(TRANSACTION_CREATE_POST)
             .commit()
     }

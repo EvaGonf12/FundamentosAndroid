@@ -18,7 +18,7 @@ data class Post(
 
     companion object {
         fun parsePostsList(response: JSONObject): List<Post> {
-            val postObjectList = response.getJSONArray("latest_posts")
+            val postObjectList = response.getJSONObject("post_stream").getJSONArray("posts")
 
             val posts = mutableListOf<Post>()
 
@@ -43,9 +43,9 @@ data class Post(
             return Post(
                 id = jsonObject.getInt("id").toString(),
                 user = jsonObject.getString("name"),
-                title = jsonObject.getString("raw"),
+                title = jsonObject.getString("cooked"),
                 topicId = jsonObject.getString("topic_id").toString(),
-                topicTitle = jsonObject.getString("topic_title"),
+                topicTitle = jsonObject.getString("topic_slug"),
                 date = dateFormatted,
                 imageURL = imgURL,
                 reads = jsonObject.getString("reads").toString()

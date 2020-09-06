@@ -24,9 +24,10 @@ object ApiRoutes {
             .build()
             .toString()
 
-    fun getPosts() =
+    fun getPosts(topicId: String) =
         uriBuilder()
-            .appendPath("posts.json")
+            .appendEncodedPath("t")
+            .appendPath("${topicId}.json")
             .build()
             .toString()
 

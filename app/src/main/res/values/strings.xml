@@ -12,8 +12,8 @@
     <string name="hint_email">Email</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hint_title">Title</string>
-    <string name="hint_content">Content</string>
+    <string name="hint_title">Insert title</string>
+    <string name="hint_content">Insert content</string>
     <string name="hint_author">Author</string>
     <string name="label_send">Send</string>
     <string name="error_empty">This field cannot be empty</string>
@@ -53,5 +53,7 @@
     <string name="error_duplicated_topic">Title has been already used</string>
     <string name="label_creating_topic">Creating Topic</string>
     <string name="label_creating_post">Creating Post</string>
-
+    <string name="topic_title">Topic: </string>
+    <string name="label_title">Title: </string>
+    <string name="label_post_content">Content Post: </string>
 </resources>

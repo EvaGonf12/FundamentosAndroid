@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_logout"
         android:title="@string/label_logout" />
+
+    <item
+        android:id="@+id/action_new"
+        android:icon="@drawable/ic_add"
+        android:title="Add Post"
+        app:showAsAction="always" />
 </menu>
