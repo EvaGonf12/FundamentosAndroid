@@ -10,6 +10,10 @@ import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.data.SignInModel
 import io.keepcoding.eh_ho.inflate
 import kotlinx.android.synthetic.main.fragment_sign_in.*
+import kotlinx.android.synthetic.main.fragment_sign_in.inputPassword
+import kotlinx.android.synthetic.main.fragment_sign_in.inputUsername
+import kotlinx.android.synthetic.main.fragment_sign_in.labelCreateAccount
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignInFragment: Fragment() {
 
@@ -41,13 +45,24 @@ class SignInFragment: Fragment() {
         }
 
         buttonLogin.setOnClickListener {
-            val signInModel = SignInModel(
-                inputUsername.text.toString(),
-                inputPassword.text.toString()
-            )
+            if (isFormValid()){
+                val signInModel = SignInModel(
+                    inputUsername.text.toString(),
+                    inputPassword.text.toString()
+                )
 
-            signInInteractionListener?.onSignIn(signInModel)
+                signInInteractionListener?.onSignIn(signInModel)
+            } else {
+                this.showErrorRequired()
+            }
         }
+    }
+
+    private fun showErrorRequired() {
+        if (inputUsername.text.isEmpty())
+            inputUsername.error = getString(R.string.error_empty)
+        if (inputPassword.text.isEmpty())
+            inputPassword.error = getString(R.string.error_empty)
     }
 
     override fun onDetach() {
@@ -59,4 +74,7 @@ class SignInFragment: Fragment() {
         fun onGoToSignUp()
         fun onSignIn(signInModel: SignInModel)
     }
+
+    private fun isFormValid() = inputUsername.text.isNotEmpty() && inputPassword.text.isNotEmpty()
+
 }

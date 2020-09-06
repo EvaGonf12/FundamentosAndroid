@@ -1,6 +1,7 @@
 package io.keepcoding.eh_ho.login
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -65,11 +66,20 @@ class LoginActivity : AppCompatActivity(),
 
     private fun handleError(error: RequestError) {
         if (error.messageResId != null)
-            Snackbar.make(container, error.messageResId, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(container, error.messageResId, Snackbar.LENGTH_LONG)
+                .setBackgroundTint(Color.RED)
+                .setTextColor(Color.WHITE)
+                .show()
         else if (error.message != null)
-            Snackbar.make(container, error.message, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(container, error.message, Snackbar.LENGTH_LONG)
+                .setBackgroundTint(Color.RED)
+                .setTextColor(Color.WHITE)
+                .show()
         else
-            Snackbar.make(container, R.string.error_default, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(container, R.string.error_default, Snackbar.LENGTH_LONG)
+                .setBackgroundTint(Color.RED)
+                .setTextColor(Color.WHITE)
+                .show()
     }
 
     override fun onGoToSignIn() {

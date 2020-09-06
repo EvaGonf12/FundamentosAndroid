@@ -67,7 +67,7 @@ class PostsFragment() : Fragment() {
         listPosts.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         listPosts.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listPosts.adapter = postsAdapter
-        titleTopic.text = "Topic: ${this.topicName}"
+        titleTopic.text = this.topicName
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
