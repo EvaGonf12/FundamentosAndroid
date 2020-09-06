@@ -18,5 +18,4 @@
         android:text="@string/label_loading"
         android:textSize="20sp" />
 
-
 </LinearLayout>

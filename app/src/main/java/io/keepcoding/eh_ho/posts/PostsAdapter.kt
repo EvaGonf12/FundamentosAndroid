@@ -1,66 +1,65 @@
-package io.keepcoding.eh_ho.topics
+package io.keepcoding.eh_ho.posts
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import io.keepcoding.eh_ho.R
-import io.keepcoding.eh_ho.data.Topic
+import io.keepcoding.eh_ho.data.Post
 import io.keepcoding.eh_ho.inflate
-import kotlinx.android.synthetic.main.item_topic.view.*
+import kotlinx.android.synthetic.main.item_post.view.*
 import java.lang.IllegalArgumentException
 import java.util.*
 
-class TopicsAdapter(val topicClickListener: ((Topic) -> Unit)? = null) :
-    RecyclerView.Adapter<TopicsAdapter.TopicHolder>() {
+class PostsAdapter(val postClickListener: ((Post) -> Unit)? = null) :
+    RecyclerView.Adapter<PostsAdapter.PostHolder>() {
 
-    private val topics = mutableListOf<Topic>()
+    private val posts = mutableListOf<Post>()
 
     private val listener: ((View) -> Unit) = {
-        if (it.tag is Topic) {
-            topicClickListener?.invoke(it.tag as Topic)
+        if (it.tag is Post) {
+            postClickListener?.invoke(it.tag as Post)
         } else {
-            throw IllegalArgumentException("Topic item view has not a Topic Data as a tag")
+            throw IllegalArgumentException("Posts item view has not a Post Data as a tag")
         }
     }
 
     override fun getItemCount(): Int {
-        return topics.size
+        return posts.size
     }
 
-    override fun onCreateViewHolder(list: ViewGroup, viewType: Int): TopicHolder {
-        val view = list.inflate(R.layout.item_topic)
-        return TopicHolder(view)
+    override fun onCreateViewHolder(list: ViewGroup, viewType: Int): PostHolder {
+        val view = list.inflate(R.layout.item_post)
+        return PostHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TopicHolder, position: Int) {
-        val topic = topics[position]
-        holder.topic = topic
+    override fun onBindViewHolder(holder: PostHolder, position: Int) {
+        val post = posts[position]
+        holder.post = post
         holder.itemView.setOnClickListener(listener)
     }
 
-    fun setTopics(topics: List<Topic>) {
-        this.topics.clear()
-        this.topics.addAll(topics)
+    fun setPosts(posts: List<Post>) {
+        this.posts.clear()
+        this.posts.addAll(posts)
         notifyDataSetChanged()
     }
 
-    inner class TopicHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var topic: Topic? = null
+    inner class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var post: Post? = null
             set(value) {
                 field = value
                 itemView.tag = field
 
                 field?.let {
                     itemView.labelTitle.text = it.title
-                    Picasso.get().load(it.imageURL).into(itemView.photo);
-                    itemView.labelPosts.text = it.posts.toString()
-                    itemView.labelViews.text = it.views.toString()
+                    itemView.labelReads.text = it.reads
                     setTimeOffset(it.getTimeOffset())
                 }
             }
 
-        private fun setTimeOffset(timeOffset: Topic.TimeOffset) {
+        private fun setTimeOffset(timeOffset: Post.TimeOffset) {
 
             val quantityString = when (timeOffset.unit) {
                 Calendar.YEAR -> R.plurals.years
@@ -83,4 +82,7 @@ class TopicsAdapter(val topicClickListener: ((Topic) -> Unit)? = null) :
             }
         }
     }
+
+
+
 }

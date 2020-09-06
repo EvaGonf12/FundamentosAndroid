@@ -33,3 +33,14 @@ data class CreateTopicModel(
             .put("raw", content)
     }
 }
+
+data class CreatePostModel(
+    val title: String,
+    val content: String
+) {
+    fun toJson(): JSONObject {
+        return JSONObject()
+            .put("title", title)
+            .put("raw", content)
+    }
+}

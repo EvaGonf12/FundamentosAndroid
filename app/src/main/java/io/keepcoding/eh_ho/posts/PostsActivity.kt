@@ -1,51 +1,43 @@
-package io.keepcoding.eh_ho.topics
+package io.keepcoding.eh_ho.posts
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.keepcoding.eh_ho.*
 import io.keepcoding.eh_ho.data.Topic
+import io.keepcoding.eh_ho.data.TopicsRepo
 import io.keepcoding.eh_ho.data.UserRepo
 import io.keepcoding.eh_ho.login.LoginActivity
-import io.keepcoding.eh_ho.posts.PostsActivity
 
+const val TRANSACTION_CREATE_POST = "create_post"
+const val EXTRA_TOPIC_ID = "TOPIC_ID"
 
-const val TRANSACTION_CREATE_TOPIC = "create_topic"
-
-class TopicsActivity : AppCompatActivity(),
-    TopicsFragment.TopicsInteractionListener,
-    CreateTopicFragment.CreateTopicInteractionListener{
+class PostsActivity : AppCompatActivity(),
+    PostsFragment.PostsInteractionListener,
+    CreatePostFragment.CreatePostInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_topics)
+        setContentView(R.layout.activity_posts)
+
+        val topicId: String = intent.getStringExtra(EXTRA_TOPIC_ID) ?: ""
+        val topic: Topic? = TopicsRepo.getTopic(topicId)
 
         if (isFirsTimeCreated(savedInstanceState))
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, TopicsFragment())
+                .add(R.id.fragmentContainer, PostsFragment(topicId))
                 .commit()
     }
 
-    private fun goToPosts(topic: Topic) {
-        val intent = Intent(this, PostsActivity::class.java)
-        intent.putExtra(EXTRA_TOPIC_ID, topic.id)
-        startActivity(intent)
-    }
-
-    override fun onCreateTopic() {
+    override fun onCreatePost() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, CreateTopicFragment())
-            .addToBackStack(TRANSACTION_CREATE_TOPIC)
+            .replace(R.id.fragmentContainer, CreatePostFragment())
+            .addToBackStack(TRANSACTION_CREATE_POST)
             .commit()
     }
 
-    override fun onShowPosts(topic: Topic) {
-        goToPosts(topic)
-    }
-
-    override fun onTopicCreated() {
+    override fun onPostCreated() {
         supportFragmentManager.popBackStack()
-
     }
 
     override fun onLogout() {
