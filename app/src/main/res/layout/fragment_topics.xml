@@ -32,4 +32,10 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         app:srcCompat="@drawable/ic_add"
         app:layout_anchor="@id/listTopics"
         app:layout_anchorGravity="bottom|right|end"/>
+
+    <include
+        android:id="@+id/viewLoading"
+        layout="@layout/view_loading"
+        android:visibility="invisible"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -91,18 +91,32 @@ class TopicsFragment : Fragment() {
     }
 
     private fun loadTopics() {
+        setLoading(true)
         context?.let {
             TopicsRepo
                 .getTopics(it.applicationContext,
                     {
+                        setLoading(false)
                         topicsAdapter.setTopics(it)
                     },
                     {
-                       // TODO: Manejo de errores
+                        setLoading(false)
+                        // TODO: Manejo de errores
                     }
                 )
         }
     }
+
+    private fun setLoading(loading: Boolean) {
+        if (loading) {
+            this.listTopics.visibility = View.INVISIBLE
+            viewLoading.visibility = View.VISIBLE
+        } else {
+            this.listTopics.visibility = View.VISIBLE
+            viewLoading.visibility = View.INVISIBLE
+        }
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
