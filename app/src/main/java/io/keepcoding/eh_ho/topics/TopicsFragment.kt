@@ -6,11 +6,13 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.keepcoding.eh_ho.R
 import io.keepcoding.eh_ho.data.Topic
 import io.keepcoding.eh_ho.data.TopicsRepo
 import io.keepcoding.eh_ho.inflate
 import kotlinx.android.synthetic.main.fragment_topics.*
+
 
 class TopicsFragment : Fragment() {
 
@@ -57,6 +59,18 @@ class TopicsFragment : Fragment() {
             this.loadTopics()
             swipeRefresh.isRefreshing = false
         }
+
+        listTopics.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0 && buttonCreate.isShown()) buttonCreate.hide()
+                if (dy < 0 && !buttonCreate.isShown()) buttonCreate.show()
+            }
+
+            /*override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) buttonCreate.show()
+                super.onScrollStateChanged(recyclerView, newState)
+            }*/
+        })
 
         topicsAdapter.setTopics(TopicsRepo.topics)
 
