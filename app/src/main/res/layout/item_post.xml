@@ -8,6 +8,19 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/labelUser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Post" />
+
+    <TextView
         android:id="@+id/labelTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -17,7 +30,7 @@
         android:layout_marginLeft="10dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelUser"
         tools:text="Post" />
 
     <TextView

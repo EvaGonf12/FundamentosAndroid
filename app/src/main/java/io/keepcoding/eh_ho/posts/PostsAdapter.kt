@@ -54,6 +54,7 @@ class PostsAdapter(val postClickListener: ((Post) -> Unit)? = null) :
 
                 field?.let {
                     itemView.labelTitle.text = it.title
+                    itemView.labelUser.text = it.user
                     itemView.labelReads.text = it.reads
                     setTimeOffset(it.getTimeOffset())
                 }
